@@ -1,6 +1,6 @@
 async function core() {
 
-    console.log("location parthname:",location.pathname);
+    console.log("location parthname:", location.pathname);
     if (!location.pathname.startsWith("/feed/")) { // /tscp-serving/dtag
         console.log("linkedin but not /feed/");
         setTimeout(core, 1000);
@@ -9,11 +9,11 @@ async function core() {
 
     const data = await getFromStorage();
 
-    console.log('DAAATAAA', Date.now() < data.IN_TIME_LIM)
+    console.log('DAAATAAA', Date.now() < data.IN_TIME_LIMIT);
 
-    if (Date.now() < data.IN_TIME_LIM) {
-        console.log("TIME OVER")
-        displayMessage('Enough posts read for now!')
+    if (Date.now() < data.IN_TIME_LIMIT) {
+        console.log("TIME OVER");
+        displayMessage('Enough posts read for now!');
         return;
     }
 
@@ -24,42 +24,45 @@ async function core() {
     let timer = 0;
     let lim_reached = false;
     const timerID = setInterval(() => {
-        // console.log(timer, "timer going on...", location.pathname);
+        console.log(timer, "timer going on...", location.pathname);
         timer++;
+        let in_per_session_time_spend = chrome.storage.local.get('in_per_session_time_spend');
+        chrome.storage.local.set({
+            in_per_session_time_spend: in_per_session_time_spend + 1
+        });
 
-        
-        // if (timer >= data.IN_TIME_LIM) {
-            
-        //     console.log("time over");
-        //     displayMessage();
-        //     clearInterval(timerID);
-        //     return;
-        
-        // }
-        // console.log(posts_urn.getElementsByClassName("fie-impression-container").length);
-        
         if (lim_reached) {
-            // document.getElementsByClassName("scaffold-layout__sticky-content")[0].style.setProperty('background-color', 'red', 'important')
-            console.log("lim reached... waiting inside timer")
-        } 
+            console.log("lim reached... waiting inside timer");
+            chrome.storage.local.set({
+                IN_TIME_LIMIT: Date.now() + 1000 * 60 * 60
+            });
+        }
+
+        else if (timer >= data.IN_TIME_LIMIT) {
+            console.log("timer over");
+            displayMessage("Enough");
+            clearInterval(timerID);
+            return;
+        }
+
         // console.log(posts_urn.querySelectorAll("h2.feed-skip-link__container").length);
-        else if (posts_urn.querySelector(`[data-finite-scroll-hotkey-item="${data.IN_POSTS_LIM - 1}"]`)) {
+        else if (posts_urn.querySelector(`[data-finite-scroll-hotkey-item="${data.IN_POSTS_LIMIT - 1}"]`)) {
             // clearInterval(timerID);
             // can use posts_urn.nextElementSibling.remove() but this one supports older (IE11) as well
             posts_urn.parentNode.removeChild(posts_urn.nextElementSibling);
-            console.log("URN IS FULL")
+            console.log("URN IS FULL");
             lim_reached = true;
             chrome.storage.local.set({
-                IN_TIME_LIM: Date.now() + 1000 * 60 * 60
-            })
+                IN_TIME_LIMIT: Date.now() + 1000 * 60 * 60
+            });
 
             let i = 0;
-            let overflowed = posts_urn.querySelector(`[data-finite-scroll-hotkey-item="${data.IN_POSTS_LIM + i}"]`);
+            let overflowed = posts_urn.querySelector(`[data-finite-scroll-hotkey-item="${data.IN_POSTS_LIMIT + i}"]`);
             while (overflowed) {
-                console.log("remoing overflowed:", data.IN_POSTS_LIM + i);
+                console.log("removing overflowed:", data.IN_POSTS_LIMIT + i);
                 overflowed.remove();
                 i++;
-                overflowed = posts_urn.querySelector(`[data-finite-scroll-hotkey-item="${data.IN_POSTS_LIM + i}"]`);
+                overflowed = posts_urn.querySelector(`[data-finite-scroll-hotkey-item="${data.IN_POSTS_LIMIT + i}"]`);
             }
 
 
@@ -73,35 +76,43 @@ async function getFromStorage() {
     console.log("chrome.storage.local:", chrome?.storage?.local);
 
     const res = await new Promise((resolve) => {
-        chrome.storage.local.get(['in_posts_seen',
-            'in_time_spend',
-            'in_posts_speer',
-            'IN_TIME_LIM',
-            'IN_POSTS_LIM',
+        chrome.storage.local.get([
+            'in_total_posts_seen_today',
+            'in_per_session_time_spend',
+            'in_posts_speer_counter',
+            'IN_TIME_LIMIT',
+            'IN_POSTS_LIMIT',
             'in_hourly_reset',
             'in_daily_reset'],
             resolve);
     });
 
-    const in_posts_seen = res.in_posts_seen ?? 0;
-    const in_time_spend = res.in_time_spend ?? 0;
-    const in_posts_speer = res.in_posts_speer ?? 0;
-    const IN_TIME_LIM = res.IN_TIME_LIM ?? 10;
-    const IN_POSTS_LIM = res.IN_POSTS_LIM ?? 10;
-    const in_hourly_reset = res.in_hourly_reset ?? 0;
-    const in_daily_reset = res.in_daily_reset ?? 0;
+    const in_total_posts_seen_today = res.in_total_posts_seen_today ?? 0;   // TODO
+    const in_per_session_time_spend = res.in_per_session_time_spend ?? 0;   // done
+    const in_posts_speer_counter = res.in_posts_speer_counter ?? 0;         // TODO
+    const IN_TIME_LIMIT = res.IN_TIME_LIMIT ?? 1000;                        // done
+    const IN_POSTS_LIMIT = res.IN_POSTS_LIMIT ?? 10;                        // done
+    const in_hourly_reset = res.in_hourly_reset ?? 0;                       // TODO
+    const in_daily_reset = res.in_daily_reset ?? 0;                         // TODO
 
     console.log("in getFromStorage");
 
-    return { in_posts_seen, in_time_spend, in_posts_speer, IN_TIME_LIM, IN_POSTS_LIM, in_hourly_reset, in_daily_reset };
+    chrome.storage.local.set({
+        IN_TIME_LIMIT,
+        in_per_session_time_spend
+    });
+
+    return { in_total_posts_seen_today, in_per_session_time_spend, in_posts_speer_counter, IN_TIME_LIMIT, IN_POSTS_LIMIT, in_hourly_reset, in_daily_reset };
 
 }
 
 function displayMessage(msg) {
     console.log("in displayMessage");
-    const urn = document.getElementsByClassName("scaffold-finite-scroll--finite")[0]
-    console.log(urn)
-    urn.innerHTML = msg;
+    let urn = document.getElementsByClassName("scaffold-finite-scroll--finite");
+    console.log(urn);
+    urn = urn[0];
+    console.log(urn);
+    if (urn) urn.innerHTML = msg;
 }
 
 console.log("chrome:", chrome);
