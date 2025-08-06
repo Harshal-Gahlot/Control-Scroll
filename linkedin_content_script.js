@@ -19,7 +19,6 @@ async function core() {
 
     console.log("linkedin feed encountered");
 
-
     const posts_urn = document.getElementsByClassName("scaffold-finite-scroll__content")[0];
     let timer = 0;
     let lim_reached = false;
@@ -31,21 +30,20 @@ async function core() {
             in_per_session_time_spend: in_per_session_time_spend + 1
         });
 
+        console.log(data.IN_POSTS_LIMIT, '%%%%%%%%%%%%%%%%%%%%%%%%', posts_urn.querySelectorAll(`[data-finite-scroll-hotkey-item='0']`));
+
         if (lim_reached) {
             console.log("lim reached... waiting inside timer");
             chrome.storage.local.set({
                 IN_TIME_LIMIT: Date.now() + 1000 * 60 * 60
             });
         }
-
         else if (timer >= data.IN_TIME_LIMIT) {
             console.log("timer over");
             displayMessage("Enough");
             clearInterval(timerID);
             return;
         }
-
-        // console.log(posts_urn.querySelectorAll("h2.feed-skip-link__container").length);
         else if (posts_urn.querySelector(`[data-finite-scroll-hotkey-item="${data.IN_POSTS_LIMIT - 1}"]`)) {
             // clearInterval(timerID);
             // can use posts_urn.nextElementSibling.remove() but this one supports older (IE11) as well
@@ -108,11 +106,15 @@ async function getFromStorage() {
 
 function displayMessage(msg) {
     console.log("in displayMessage");
-    let urn = document.getElementsByClassName("scaffold-finite-scroll--finite");
-    console.log(urn);
-    urn = urn[0];
-    console.log(urn);
-    if (urn) urn.innerHTML = msg;
+    const removeUrn = setInterval(() => {
+        let urn = document.querySelector(".scaffold-finite-scroll");
+        console.log(urn);
+        if (urn) {
+            urn.textContent = msg;
+            clearInterval(removeUrn)
+            return
+        }
+    }, 100)
 }
 
 console.log("chrome:", chrome);

@@ -1,0 +1,14 @@
+/* Import Tailwind's base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for our tabs */
+@layer components {
+  .tab-button {
+    @apply flex-1 rounded-md px-3 py-1.5 text-sm font-medium text-neutral-600 transition-all;
+  }
+  .active-tab {
+    @apply bg-white text-black shadow-sm;
+  }
+}

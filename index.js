@@ -1,9 +1,14 @@
-chrome.storage.local.get(['total_shorts_of_day', 'SHORTS_LIM', 'TIME_LIM', 'total_shorts_watch_time'], (data) => {
+
+chrome.storage.local.get(['total_shorts_of_day', 'SHORTS_LIM', 'TIME_LIM', 'total_shorts_watch_time', 'yesterday_total_shorts_of_day', 'yesterday_total_shorts_watch_time'], (data) => {
     const total_shorts_of_day = data.total_shorts_of_day || '-';
     const total_shorts_watch_time = data.total_shorts_watch_time || '-';
+    const yesterday_total_shorts_of_day = data.yesterday_total_shorts_of_day || '-'
+    const yesterday_total_shorts_watch_time = data.yesterday_total_shorts_watch_time || '-'
 
     document.getElementById('shorts_count').textContent = total_shorts_of_day;
     document.getElementById('total_shorts_watch_time').textContent = total_shorts_watch_time;
+    document.getElementById('shorts_count_yesterday').textContent = yesterday_total_shorts_of_day;
+    document.getElementById('total_shorts_watch_time_yesterday').textContent = yesterday_total_shorts_watch_time;
 
     const shorts_lim_choose_select = document.getElementById("shorts_lim_choose");
     if (data.SHORTS_LIM) shorts_lim_choose_select.value = data.SHORTS_LIM;

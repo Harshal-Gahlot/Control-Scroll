@@ -4,18 +4,36 @@
 <head>
     <title>Popup</title>
     <!-- Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="dist/output.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
 </head>
 
 <body class="bg-black text-white p-4" style="width:max-content;">
+
+    <!-- <Tabs defaultValue="account" className="w-[400px]">
+        <TabsList>
+            <TabsTrigger value="account">Account</TabsTrigger>
+            <TabsTrigger value="password">Password</TabsTrigger>
+        </TabsList>
+        <TabsContent value="account">Make changes to your account here.</TabsContent>
+        <TabsContent value="password">Change your password here.</TabsContent>
+    </Tabs> -->
+
     <h1 class="text-2xl font-bold mb-4">Shorts Limiter</h1>
 
-    <div class="text-xl">Number of shorts watched:
+    <div class="text-2xl text-blue-400">Number of shorts watched:
         <span id="shorts_count">-</span>
     </div>
     <div class="text-xl">Time spent waching shorts today:
         <span id="total_shorts_watch_time">-</span>
+    </div>
+
+    <div class="text-xl">Number of shorts watched yesterday:
+        <span id="shorts_count_yesterday">-</span>
+    </div>
+    <div class="text-xl">Time spent waching shorts yesterday:
+        <span id="total_shorts_watch_time_yesterday">-</span>
     </div>
     <div>
         <label for="shorts_lim_choose">Choose shorts limit:</label>
