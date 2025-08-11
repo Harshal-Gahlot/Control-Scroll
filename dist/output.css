@@ -1,4 +1,4 @@
-/* Import Tailwind's base styles */
+/* src/input.css */
 
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
@@ -554,20 +554,115 @@ video {
   display: none;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
+/* Style for all tab buttons by default */
+
+.tab-button {
+  height: 60px;
+  width: 60px;
+  border-radius: 0.375rem;
+  border-left-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(163 133 96 / var(--tw-border-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
-.w-\[400px\] {
-  width: 400px;
+.tab-button:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 48 43 / var(--tw-bg-opacity, 1));
+}
+
+.tab-button img {
+  filter: brightness(0) invert(1);
+}
+
+/* Style for ONLY the active tab button */
+
+.tab-active {
+  z-index: 10;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-left-width: 0px;
+  --tw-border-opacity: 1;
+  border-color: rgb(163 133 96 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(164 69 41 / var(--tw-bg-opacity, 1));
+}
+
+.relative {
+  position: relative;
+}
+
+.flex {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.h-64 {
+  height: 16rem;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.max-h-64 {
+  max-height: 16rem;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
 .rounded {
   border-radius: 0.25rem;
 }
 
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
 .border {
   border-width: 1px;
+}
+
+.border-y-2 {
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+}
+
+.border-l-2 {
+  border-left-width: 2px;
+}
+
+.border-none {
+  border-style: none;
+}
+
+.border-ctm-golden {
+  --tw-border-opacity: 1;
+  border-color: rgb(163 133 96 / var(--tw-border-opacity, 1));
 }
 
 .border-gray-600 {
@@ -575,22 +670,22 @@ video {
   border-color: rgb(75 85 99 / var(--tw-border-opacity, 1));
 }
 
-.bg-black {
+.bg-ctm-dark-green {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+  background-color: rgb(22 48 43 / var(--tw-bg-opacity, 1));
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .p-1 {
   padding: 0.25rem;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .text-xl {
@@ -602,9 +697,9 @@ video {
   font-weight: 700;
 }
 
-.text-blue-400 {
+.text-ctm-white {
   --tw-text-opacity: 1;
-  color: rgb(96 165 250 / var(--tw-text-opacity, 1));
+  color: rgb(224 224 224 / var(--tw-text-opacity, 1));
 }
 
 .text-white {
@@ -612,4 +707,17 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-/* Custom styles for our tabs */
+.focus\:bg-ctm-orange:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(164 69 41 / var(--tw-bg-opacity, 1));
+}
+
+.focus\:text-ctm-golden:focus {
+  --tw-text-opacity: 1;
+  color: rgb(163 133 96 / var(--tw-text-opacity, 1));
+}
+
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}

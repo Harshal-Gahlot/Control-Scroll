@@ -1,7 +1,7 @@
 async function core() {
 
-    console.log("location parthname:", location.pathname);
-    if (!location.pathname.startsWith("/feed/")) { // /tscp-serving/dtag
+    console.log("querySelector.getAttribute is FEED? check", document.querySelector('[data-finite-scroll-hotkey-context]')?.getAttribute("data-finite-scroll-hotkey-context"));
+    if (document.querySelector('[data-finite-scroll-hotkey-context]')?.getAttribute("data-finite-scroll-hotkey-context") !== "FEED") { // /tscp-serving/dtag
         console.log("linkedin but not /feed/");
         setTimeout(core, 1000);
         return;
@@ -9,11 +9,12 @@ async function core() {
 
     const data = await getFromStorage();
 
-    console.log('DAAATAAA', Date.now() < data.IN_TIME_LIMIT);
+    console.log('time lim reached? :', Date.now() < data.IN_TIME_LIMIT);
 
     if (Date.now() < data.IN_TIME_LIMIT) {
         console.log("TIME OVER");
         displayMessage('Enough posts read for now!');
+        setTimeout(core, 1000);
         return;
     }
 
@@ -111,10 +112,10 @@ function displayMessage(msg) {
         console.log(urn);
         if (urn) {
             urn.textContent = msg;
-            clearInterval(removeUrn)
-            return
+            clearInterval(removeUrn);
+            return;
         }
-    }, 100)
+    }, 100);
 }
 
 console.log("chrome:", chrome);

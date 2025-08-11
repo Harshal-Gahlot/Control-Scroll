@@ -5,64 +5,95 @@
     <title>Popup</title>
     <!-- Tailwind CDN -->
     <link rel="stylesheet" href="dist/output.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="index.js"></script>
+
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
 </head>
 
-<body class="bg-black text-white p-4" style="width:max-content;">
+<body class="bg-ctm-dark-green text-ctm-white w-96 max-h-64 h-64 ">
+    <div class="flex flex-row-reverse relative h-full overflow-y-auto">
 
-    <!-- <Tabs defaultValue="account" className="w-[400px]">
-        <TabsList>
-            <TabsTrigger value="account">Account</TabsTrigger>
-            <TabsTrigger value="password">Password</TabsTrigger>
-        </TabsList>
-        <TabsContent value="account">Make changes to your account here.</TabsContent>
-        <TabsContent value="password">Change your password here.</TabsContent>
-    </Tabs> -->
+        <div id="tab-buttons" class="flex flex-col ">
+            <button data-tab-target="#home" class="tab-button tab-active">
+                <img src=" ./images/youtube.png" alt="in">
+            </button>
 
-    <h1 class="text-2xl font-bold mb-4">Shorts Limiter</h1>
+            <button data-tab-target="#profile" class="tab-button">
+                <img src="./images/linkedin.png" alt="yt">
+            </button>
 
-    <div class="text-2xl text-blue-400">Number of shorts watched:
-        <span id="shorts_count">-</span>
-    </div>
-    <div class="text-xl">Time spent waching shorts today:
-        <span id="total_shorts_watch_time">-</span>
+            <button data-tab-target="#messages" class="tab-button">
+                <img src="./images/twitter.png" alt="X">
+            </button>
+
+            <button data-tab-target="#messages" class="tab-button">
+                <img src="./images/twitter.png" alt="X">
+            </button>
+        </div>
+        <div id="tab-content" class="flex-1 border-ctm-golden border-y-2 border-l-2">
+            <span class="text-sm font-bold">Control Scroll</span>
+            
+            <div id="home" class="p-1 rounded-lg ">
+
+                <div class="text-xl ">Number of shorts watched:
+                    <span id="shorts_count">-</span>
+                </div>
+
+                <div class="text-md">Time spent watching shorts today:
+                    <span id="total_shorts_watch_time">-</span>
+                </div>
+
+                <div class="text-sm">Number of shorts watched yesterday:
+                    <span id="shorts_count_yesterday">-</span>
+                </div>
+
+                <div class="text-sm">time spent watching shorts yesterday:
+                    <span id="total_shorts_watch_time_yesterday">-</span>
+                </div>
+
+                <label for="shorts_lim_choose">Choose shorts limit:</label>
+                <select id="shorts_lim_choose" class="bg-transparent focus:bg-ctm-orange focus:text-ctm-golden focus:outline-none  border-none  ">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+
+                <label for="time_lim_choose">Choose per short max limit:</label>
+                <select id="time_lim_choose" class="bg-transparent text-white border border-gray-600 rounded p-1">
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                    <option value="100">100</option>
+                    <option value="120">120</option>
+                </select>
+
+            </div>
+
+
+
+            <div id="profile" class="p-1 rounded-lg hidden">
+            </div>
+            <div id="messages" class="p-1 rounded-lg hidden">
+            </div>
+
+        </div>
     </div>
 
-    <div class="text-xl">Number of shorts watched yesterday:
-        <span id="shorts_count_yesterday">-</span>
-    </div>
-    <div class="text-xl">Time spent waching shorts yesterday:
-        <span id="total_shorts_watch_time_yesterday">-</span>
-    </div>
-    <div>
-        <label for="shorts_lim_choose">Choose shorts limit:</label>
-        <select id="shorts_lim_choose" class="bg-black text-white border border-gray-600 rounded p-1">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
-    <div>
-        <label for="time_lim_choose">Choose per short max limit:</label>
-        <select id="time_lim_choose" class="bg-black text-white border border-gray-600 rounded p-1">
-            <option value="30">30</option>
-            <option value="40">40</option>
-            <option value="50">50</option>
-            <option value="60">60</option>
-            <option value="70">70</option>
-            <option value="80">80</option>
-            <option value="90">90</option>
-            <option value="100">100</option>
-            <option value="120">120</option>
-        </select>
-    </div>
 
-</body>
-<script src="index.js"></script>
+
+
+
+
+
 </body>
 
 </html>
