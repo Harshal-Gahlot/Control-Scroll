@@ -6,13 +6,13 @@
 @layer components {
   /* Style for all tab buttons by default */
   .tab-button {
-    @apply border-l-2 border-ctm-golden w-[60px] h-[60px] rounded-md transition-all duration-200 hover:bg-ctm-dark-green;
+    @apply w-[60px] h-[60px] rounded-md transition-all duration-200 hover:text-ctm-light-gray;
   }
   .tab-button img {
     filter: brightness(0) invert(1);
   }
   /* Style for ONLY the active tab button */
   .tab-active {
-    @apply bg-ctm-orange border-ctm-golden border-y-2 border-r-2 border-l-0 z-10;
+    @apply  text-ctm-white hover:text-ctm-white;
   }
 }

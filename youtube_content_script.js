@@ -3,21 +3,21 @@ function core() {
     if (location.pathname.startsWith('/shorts/')) {
         console.log('YouTube Shorts detected\n\n');
         chrome.storage.local.get(
-            ['total_shorts_of_day', 'yesterday_total_shorts_of_day', 'shorts_spree', 'total_shorts_watch_time', 'yesterday_total_shorts_watch_time', 'SHORTS_LIM', 'TIME_LIM', 'reset_in', 'daily_reset_in'],
-            ({ total_shorts_of_day = 0, yesterday_total_shorts_of_day = '-', yesterday_total_shorts_watch_time = '-', shorts_spree = 0, total_shorts_watch_time = 0, SHORTS_LIM = 3, TIME_LIM = 60, reset_in = 0, daily_reset_in = 0 }) => {
+            ['total_shorts_of_day', 'yesterday_total_shorts_of_day', 'shorts_spree', 'total_shorts_watch_time', 'yesterday_total_shorts_watch_time', 'SHORTS_LIM', 'SHORTS_TIME_LIM', 'shorts_reset_in', 'daily_shorts_reset_in'],
+            ({ total_shorts_of_day = 0, yesterday_total_shorts_of_day = '-', yesterday_total_shorts_watch_time = '-', shorts_spree = 0, total_shorts_watch_time = 0, SHORTS_LIM = 3, SHORTS_TIME_LIM = 60, shorts_reset_in = 0, daily_shorts_reset_in = 0 }) => {
 
-                console.log("TOP FIRST PRINTING ALL VALUES::::::::", 'total_shorts_of_day', total_shorts_of_day, 'shorts_spree', shorts_spree, 'total_shorts_watch_time', total_shorts_watch_time, 'SHORTS_LIM', SHORTS_LIM, 'TIME_LIM', TIME_LIM, 'reset_in', reset_in, "Current time: ", Date.now());
+                console.log("TOP FIRST PRINTING ALL VALUES::::::::", 'total_shorts_of_day', total_shorts_of_day, 'shorts_spree', shorts_spree, 'total_shorts_watch_time', total_shorts_watch_time, 'SHORTS_LIM', SHORTS_LIM, 'SHORTS_TIME_LIM', SHORTS_TIME_LIM, 'shorts_reset_in', shorts_reset_in, "Current time: ", Date.now());
 
                 // If the user has reached the shorts spree limit.
-                if (reset_in > Date.now() && shorts_spree === 0) {
-                    console.log('--------------------waiting for reset in:', (reset_in - Date.now()) / 1000, 'seconds or ', (reset_in - Date.now()) / 1000 / 60, 'minutes');
-                    displayMessage("NO MORE SCROLLING BABY, GO BACK TO WORK BITCH!");
+                if (shorts_reset_in > Date.now() && shorts_spree === 0) {
+                    console.log('--------------------waiting for reset in:', (shorts_reset_in - Date.now()) / 1000, 'seconds or ', (shorts_reset_in - Date.now()) / 1000 / 60, 'minutes');
+                    displayMessage("NO MORE SCROLLINGz BABY, GO BACK TO WORK BITCH!");
                     return;
                 }
 
                 const storage = new Set();
                 let stopwatch = 0;
-                let reset_in_flag = false;
+                let shorts_reset_in_flag = false;
 
                 const timerId = setInterval(() => {
                     stopwatch++;
@@ -26,7 +26,7 @@ function core() {
                     const id = location.pathname.slice(8);
                     storage.add(id);
 
-                    if (stopwatch >= TIME_LIM * SHORTS_LIM || storage.size > SHORTS_LIM) {
+                    if (stopwatch >= SHORTS_TIME_LIM * SHORTS_LIM || storage.size > SHORTS_LIM) {
                         displayMessage("ENOUGH !");
                         shorts_spree = 0;
                         chrome.storage.local.set({
@@ -44,16 +44,16 @@ function core() {
                         total_shorts_of_day++;
                     }
 
-                    if (shorts_spree === 1 && !reset_in_flag) {
-                        reset_in_flag = true;
+                    if (shorts_spree === 1 && !shorts_reset_in_flag) {
+                        shorts_reset_in_flag = true;
                         chrome.storage.local.set({
-                            reset_in: Date.now() + 1000 * 60 * 60, // 60 min
+                            shorts_reset_in: Date.now() + 1000 * 60 * 60, // 60 min
                             SHORTS_LIM,
-                            TIME_LIM
+                            SHORTS_TIME_LIM
                         });
                         console.log('First short watched, setting reset timer:', Date.now() + 1000 * 60 * 60);
 
-                        if (daily_reset_in < Date.now()) {
+                        if (daily_shorts_reset_in < Date.now()) {
                             const date = new Date();
                             const hours_passed = date.getHours();
                             const min_passed = date.getMinutes();
@@ -70,7 +70,7 @@ function core() {
                             const daily_reset = Date.now() + seconds_left + min_left + hours_left;
 
                             chrome.storage.local.set({
-                                daily_reset_in: daily_reset,
+                                daily_shorts_reset_in: daily_reset,
                                 yesterday_total_shorts_of_day: total_shorts_of_day,
                                 yesterday_total_shorts_watch_time: total_shorts_watch_time,
                             });
@@ -80,7 +80,7 @@ function core() {
                                 total_shorts_watch_time: 0
                             });
 
-                            console.log("DAILY_RESET_IN:", new Date(daily_reset).toString());
+                            console.log("DAILY_shorts_reset_in:", new Date(daily_reset).toString());
 
                         }
 
@@ -92,8 +92,8 @@ function core() {
                         total_shorts_watch_time
                     });
 
-                    // console.log("-----------last msg", 'total_shorts_of_day:', total_shorts_of_day, 'shorts_spree:', shorts_spree, 'SHORTS_LIM:', SHORTS_LIM, 'TIME_LIM:', TIME_LIM, 'total_shorts_watch_time:', total_shorts_watch_time);
-                    // console.log('reset_in:', reset_in, 'currentTime:', Date.now(), "able to watch:", reset_in > Date.now(), "\n\n\n\n");
+                    // console.log("-----------last msg", 'total_shorts_of_day:', total_shorts_of_day, 'shorts_spree:', shorts_spree, 'SHORTS_LIM:', SHORTS_LIM, 'SHORTS_TIME_LIM:', SHORTS_TIME_LIM, 'total_shorts_watch_time:', total_shorts_watch_time);
+                    // console.log('shorts_reset_in:', shorts_reset_in, 'currentTime:', Date.now(), "able to watch:", shorts_reset_in > Date.now(), "\n\n\n\n");
                 }, 1000);
             });
     } else {

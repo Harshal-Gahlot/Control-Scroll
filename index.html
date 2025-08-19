@@ -7,85 +7,190 @@
     <link rel="stylesheet" href="dist/output.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="index.js"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
 </head>
 
-<body class="bg-ctm-dark-green text-ctm-white w-96 max-h-64 h-64 ">
+<body class="bg-ctm-black text-ctm-white w-96 max-h-64 h-64 font-sans">
     <div class="flex flex-row-reverse relative h-full overflow-y-auto">
 
-        <div id="tab-buttons" class="flex flex-col ">
-            <button data-tab-target="#home" class="tab-button tab-active">
-                <img src=" ./images/youtube.png" alt="in">
+        <div id="tab-buttons" class="flex flex-col gap-1 text-ctm-medium-gray">
+            <button data-tab-target="#yt_shorts" class="tab-button tab-active">
+                <svg width="50" height="45" viewBox="0 0 64 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M52.2264 42.4494H11.7736C6.36086 42.4494 2 37.6625 2 31.7746V12.6748C2 6.76298 6.38278 2 11.7736 2H52.2264C57.6391 2 61.9999 6.78692 61.9999 12.6748V31.7746C62.0218 37.6865 57.6391 42.4494 52.2264 42.4494Z"
+                        stroke="currentColor" stroke-width="4" />
+                    <path d="M42.613 21.9255L25.5956 12.1124V31.7387L42.613 21.9255Z" stroke="currentColor"
+                        stroke-width="4" />
+                </svg>
+
             </button>
 
-            <button data-tab-target="#profile" class="tab-button">
-                <img src="./images/linkedin.png" alt="yt">
+            <button data-tab-target="#linkedIn" class="tab-button">
+                <svg width="50" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M40 20C43.9782 20 47.7936 21.5804 50.6066 24.3934C53.4196 27.2064 55 31.0218 55 35V52.5H45V35C45 33.6739 44.4732 32.4021 43.5355 31.4645C42.5979 30.5268 41.3261 30 40 30C38.6739 30 37.4021 30.5268 36.4645 31.4645C35.5268 32.4021 35 33.6739 35 35V52.5H25V35C25 31.0218 26.5804 27.2064 29.3934 24.3934C32.2064 21.5804 36.0218 20 40 20Z"
+                        stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 22.5H5V52.5H15V22.5Z" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path
+                        d="M10 15C12.7614 15 15 12.7614 15 10C15 7.23858 12.7614 5 10 5C7.23858 5 5 7.23858 5 10C5 12.7614 7.23858 15 10 15Z"
+                        stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
             </button>
 
-            <button data-tab-target="#messages" class="tab-button">
-                <img src="./images/twitter.png" alt="X">
+            <button data-tab-target="#X" class="tab-button">
+                <svg width="50" height="54" viewBox="0 0 60 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M18.9076 0H0L22.4178 29.3658L1.43408 54H11.1292L26.9999 35.3684L41.0924 53.8288H60L36.9308 23.6097L36.9717 23.6618L56.8346 0.343047H47.1395L32.3889 17.6599L18.9076 0ZM10.4367 5.14289H16.3228L49.5633 48.6856H43.6772L10.4367 5.14289Z"
+                        fill="currentColor" />
+                </svg>
+
             </button>
 
-            <button data-tab-target="#messages" class="tab-button">
-                <img src="./images/twitter.png" alt="X">
+            <button data-tab-target="#X" class="tab-button">
+                <svg width="50" height="54" viewBox="0 0 60 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M18.9076 0H0L22.4178 29.3658L1.43408 54H11.1292L26.9999 35.3684L41.0924 53.8288H60L36.9308 23.6097L36.9717 23.6618L56.8346 0.343047H47.1395L32.3889 17.6599L18.9076 0ZM10.4367 5.14289H16.3228L49.5633 48.6856H43.6772L10.4367 5.14289Z"
+                        fill="currentColor" />
+                </svg>
+
             </button>
         </div>
-        <div id="tab-content" class="flex-1 border-ctm-golden border-y-2 border-l-2">
-            <span class="text-sm font-bold">Control Scroll</span>
-            
-            <div id="home" class="p-1 rounded-lg ">
 
-                <div class="text-xl ">Number of shorts watched:
-                    <span id="shorts_count">-</span>
+        <div id="tab-content" class="flex-1 p-2 flex flex-col space-y-2">
+
+            <span class="text-base font-semibold text-gray-500">Control Scroll &#9995;</span>
+
+            <div id="yt_shorts" class="space-y-1.5">
+
+                <div class="flex justify-between items-center text-base">
+                    <span class="text-ctm-white">Shorts Watched:</span>
+                    <span id="shorts_count" class="font-mono text-md text-ctm-golden font-bold">-</span>
                 </div>
 
-                <div class="text-md">Time spent watching shorts today:
-                    <span id="total_shorts_watch_time">-</span>
+                <div class="flex justify-between items-center text-base">
+                    <span class="text-ctm-white">Time Spent Today(s):</span>
+                    <span id="total_shorts_watch_time" class="font-mono text-md text-ctm-golden font-bold">-</span>
                 </div>
 
-                <div class="text-sm">Number of shorts watched yesterday:
-                    <span id="shorts_count_yesterday">-</span>
+                <div class="flex justify-between items-center text-base text-ctm-white">
+                    <span class="">Shorts Yesterday:</span>
+                    <span id="shorts_count_yesterday" class="font-mono font-semibold">-</span>
                 </div>
 
-                <div class="text-sm">time spent watching shorts yesterday:
-                    <span id="total_shorts_watch_time_yesterday">-</span>
+                <div class="flex justify-between items-center text-base text-ctm-white">
+                    <span class="">Time Spent Yesterday(s):</span>
+                    <span id="total_shorts_watch_time_yesterday" class="font-mono font-semibold">-</span>
                 </div>
 
-                <label for="shorts_lim_choose">Choose shorts limit:</label>
-                <select id="shorts_lim_choose" class="bg-transparent focus:bg-ctm-orange focus:text-ctm-golden focus:outline-none  border-none  ">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
 
-                <label for="time_lim_choose">Choose per short max limit:</label>
-                <select id="time_lim_choose" class="bg-transparent text-white border border-gray-600 rounded p-1">
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                    <option value="60">60</option>
-                    <option value="70">70</option>
-                    <option value="80">80</option>
-                    <option value="90">90</option>
-                    <option value="100">100</option>
-                    <option value="120">120</option>
-                </select>
+                <div class="space-y-2 pt-2 mt-2 border-t border-ctm-medium-gray">
 
+                    <div class="flex justify-between items-center">
+                        <label for="shorts_lim_choose" class="text-sm text-ctm-medium-gray">Shorts Limit Per
+                            Hour:</label>
+                        <select id="shorts_lim_choose"
+                            class="bg-ctm-black border-1 border-ctm-medium-gray text-ctm-white rounded-md p-1 active:outline-none cursor-pointer">
+                            <option value="0">0 (block)</option>
+                            <option value="1">1 short</option>
+                            <option value="2">2 shorts</option>
+                            <option value="3">3 shorts</option>
+                            <option value="4">4 shorts</option>
+                            <option value="5">5 shorts</option>
+                        </select>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <label for="time_lim_choose" class="text-sm text-ctm-medium-gray">Consider 1 short time:</label>
+                        <select id="time_lim_choose"
+                            class="bg-ctm-black border-1 border-ctm-medium-gray text-ctm-white rounded-md p-1 active:outline-none cursor-pointer">
+                            <option value="30">30 seconds</option>
+                            <option value="40">40 seconds</option>
+                            <option value="50">50 seconds</option>
+                            <option value="60">60 seconds</option>
+                            <option value="70">70 seconds</option>
+                            <option value="80">80 seconds</option>
+                            <option value="90">90 seconds</option>
+                            <option value="100">100 seconds</option>
+                            <option value="120">120 seconds</option>
+                        </select>
+                    </div>
+
+                </div>
             </div>
 
-
-
-            <div id="profile" class="p-1 rounded-lg hidden">
+       
+            <div id="linkedIn" class="space-y-1.5 hidden">
+                <div class="flex justify-between items-center text-base">
+                    <span class="text-ctm-white">Posts Read:</span>
+                    <span id="posts_count" class="font-mono text-md text-ctm-golden font-bold">-</span>
+                </div>
+                
+                <div class="flex justify-between items-center text-base">
+                    <span class="text-ctm-white">Time Spent Today (seconds):</span>
+                    <span id="total_posts_watch_time" class="font-mono text-md text-ctm-golden font-bold">-</span>
+                </div>
+                
+                <div class="flex justify-between items-center text-base text-ctm-white">
+                    <span class="">Posts Read Yesterday:</span>
+                    <span id="posts_count_yesterday" class="font-mono font-semibold">-</span>
+                </div>
+                
+                <div class="flex justify-between items-center text-base text-ctm-white">
+                    <span class="">Time Spent Yesterday:</span>
+                    <span id="total_posts_watch_time_yesterday" class="font-mono font-semibold">-</span>
+                </div>
+                
+                
+                <div class="space-y-2 pt-2 mt-2 border-t border-ctm-medium-gray">
+                
+                    <div class="flex justify-between items-center">
+                        <label for="posts_lim_choose" class="text-sm text-ctm-medium-gray">Posts Limit Per
+                            Hour:</label>
+                        <select id="posts_lim_choose"
+                            class="bg-ctm-black border-1 border-ctm-medium-gray text-ctm-white rounded-md p-1 active:outline-none cursor-pointer">
+                            <option value="0">0 (block)</option>
+                            <option value="1">1 Post</option>
+                            <option value="2">2 Posts</option>
+                            <option value="3">3 Posts</option>
+                            <option value="4">4 Posts</option>
+                            <option value="5">5 Posts</option>
+                        </select>
+                    </div>
+                
+                    <div class="flex justify-between items-center">
+                        <label for="time_lim_choose" class="text-sm text-ctm-medium-gray">Consider 1 short time:</label>
+                        <select id="time_lim_choose"
+                            class="bg-ctm-black border-1 border-ctm-medium-gray text-ctm-white rounded-md p-1 active:outline-none cursor-pointer">
+                            <option value="30">30 seconds</option>
+                            <option value="40">40 seconds</option>
+                            <option value="50">50 seconds</option>
+                            <option value="60">60 seconds</option>
+                            <option value="70">70 seconds</option>
+                            <option value="80">80 seconds</option>
+                            <option value="90">90 seconds</option>
+                            <option value="100">100 seconds</option>
+                            <option value="120">120 seconds</option>
+                        </select>
+                    </div>
+                
+                </div>
             </div>
-            <div id="messages" class="p-1 rounded-lg hidden">
+       
+            <div id="X" class="space-y-1.5 hidden">
+                <!-- <span class="text-base font-semibold text-gray-500">Control Scroll &#9995;</span> -->
             </div>
-
         </div>
+
+
+
+    </div>
     </div>
 
 

@@ -5,13 +5,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
       colors: {
-        'ctm-brick': '#390517',
-        'ctm-golden': '#A38560',
-        'ctm-dark-green': '#16302B',
-        'ctm-black': '#03110D',
-        'ctm-white': '#E0E0E0',
-        'ctm-orange': '#A44529',
+        'ctm-white': 'hsl(0 0% 100%)',
+        'ctm-light-gray': 'hsl(0 0% 80%)',
+        'ctm-black': 'hsl(0 0% 3.9%)',
+        'ctm-charcoal': 'hsl(0 0% 9%)',
+        'ctm-medium-gray': 'hsl(0 0% 45.1%)',
+        'ctm-green':'#1DCD9F'
       }
     },
   },
